@@ -1,0 +1,53 @@
+{
+    "compilerOptions": { "noUncheckedIndexedAccess": true },
+
+    "exports": "./src/mod.ts",
+
+    "imports": {
+        "#/": "./",
+        "@/": "./src/"
+    },
+
+    "license": "MIT",
+
+    "lint": {
+        "exclude": ["**/*.min.js", "**/*.vendor.js"],
+
+        "rules": {
+            "include": [
+                "camelcase",
+                "default-param-last",
+                "eqeqeq",
+                "explicit-function-return-type",
+                "explicit-module-boundary-types",
+                "guard-for-in",
+                "no-await-in-loop",
+                "no-boolean-literal-for-arguments",
+                "no-const-assign",
+                "no-eval",
+                "no-external-import",
+                "no-implicit-declare-namespace-export",
+                "no-inferrable-types",
+                "no-non-null-asserted-optional-chain",
+                "no-non-null-assertion",
+                "no-self-compare",
+                "no-sparse-arrays",
+                "no-sync-fn-in-async-fn",
+                "no-throw-literal",
+                "no-undef",
+                "no-useless-rename",
+                "prefer-ascii",
+                "single-var-declarator",
+                "triple-slash-reference"
+            ],
+
+            "tags": ["recommended", "jsr"]
+        }
+    },
+
+    "name": "@zerm/result",
+
+    "publish": { "exclude": [".gitignore", ".editorconfig", ".prettierrc", "deno.lock"] },
+
+    "version": "1.0.0"
+}

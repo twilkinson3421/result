@@ -1,9 +1,7 @@
-type Present<T> = T extends infer U ? { [K in keyof U]: U[K] } : never;
-
 /** Represents an OK result case */
-export type Ok<T = unknown> = Present<{ ok: true } & T>;
+export type Ok<T = unknown> = { ok: true } & T;
 /** Represents an error result case */
-export type Err<E = unknown> = Present<{ ok: false } & E>;
+export type Err<E = unknown> = { ok: false } & E;
 
 /** Represents a result case, either OK or error */
 export type Result<T = unknown, E = unknown> = Ok<T> | Err<E>;

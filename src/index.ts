@@ -47,7 +47,7 @@ export function when(isOk: boolean, value?: object): Result {
 
 /** Returns the result if it is OK, otherwise throws the value returned from `elseThrow` */
 export function unwrapSync<T, E>(
-    result: Result<T, E>,
+    result: Result<Ok<T>, Err<E>>,
     elseThrow?: (result: Err<E>) => unknown,
 ): Ok<T> {
     if (result.ok) return result;
@@ -56,7 +56,7 @@ export function unwrapSync<T, E>(
 
 /** Returns the result if it is OK, otherwise throws the value returned from `elseThrow` */
 export async function unwrap<T, E>(
-    result: Result<T, E>,
+    result: Result<Ok<T>, Err<E>>,
     elseThrow?: (result: Err<E>) => unknown,
 ): Promise<Ok<T>> {
     if (result.ok) return result;
@@ -65,7 +65,7 @@ export async function unwrap<T, E>(
 
 /** Asserts that the result is OK, otherwise throws the value returned from `elseThrow` */
 export function assert<T, E>(
-    result: Result<T, E>,
+    result: Result<Ok<T>, Err<E>>,
     elseThrow?: (result: Err<E>) => unknown,
 ): asserts result is Ok<T> {
     if (result.ok) return;

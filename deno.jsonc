@@ -8,6 +8,18 @@
         "@/": "./src/"
     },
 
+    "fmt": {
+        "exclude": ["**/*.min.js", "**/*.vendor.js"],
+
+        "bracePosition": "sameLineUnlessHanging",
+        "indentWidth": 4,
+        "lineWidth": 100,
+        "newLineKind": "lf",
+        "quoteProps": "consistent",
+        "singleBodyPosition": "sameLine",
+        "useBraces": "maintain"
+    },
+
     "license": "MIT",
 
     "lint": {
@@ -47,7 +59,9 @@
 
     "name": "@zerm/result",
 
-    "publish": { "exclude": [".gitignore", ".editorconfig", ".prettierrc", "deno.lock"] },
+    "publish": {
+        "exclude": [".gitignore", ".editorconfig", ".prettierrc", "deno.lock"]
+    },
 
-    "version": "1.0.1"
+    "version": "1.1.0"
 }

@@ -9,6 +9,12 @@ export type Result<T = unknown, E = unknown> = Ok<T> | Err<E>;
 /** Represents a result possibly containing a caught error */
 export type Caught<T = unknown, E = unknown> = Result<{ value: T }, { caught: E }>;
 
+/** Extracts the OK case from a result */
+export type CaseOk<T> = T extends Result<infer U, infer E> ? U extends Err<E> ? never : U : never;
+
+/** Extracts the error case from a result */
+export type CaseErr<T> = T extends Result<infer U, infer E> ? E extends Ok<U> ? never : E : never;
+
 /** Creates an OK result */
 export function ok(): Ok;
 export function ok<T extends object>(value: T): Ok<T>;
@@ -55,11 +61,11 @@ export function assert<T>(result: Result<T>, elseThrow?: unknown): asserts resul
 export async function catchErr<T>(cb: () => T): Promise<Caught<Awaited<T>, unknown>>;
 export async function catchErr<T, E>(
     cb: () => T,
-    test: (caught: unknown) => caught is E
+    test: (caught: unknown) => caught is E,
 ): Promise<Caught<Awaited<T>, E>>;
 export async function catchErr(
     cb: () => unknown,
-    test?: (caught: unknown) => boolean
+    test?: (caught: unknown) => boolean,
 ): Promise<Result> {
     try {
         return ok({ value: await cb() });
@@ -73,7 +79,7 @@ export async function catchErr(
 export function catchErrSync<T>(cb: () => T): Caught<T, unknown>;
 export function catchErrSync<T, E>(
     cb: () => T,
-    test: (caught: unknown) => caught is E
+    test: (caught: unknown) => caught is E,
 ): Caught<T, E>;
 export function catchErrSync(cb: () => unknown, test?: (caught: unknown) => boolean): Result {
     try {

@@ -10,10 +10,10 @@ export type Result<T = unknown, E = unknown> = Ok<T> | Err<E>;
 export type Caught<T = unknown, E = unknown> = Result<{ value: T }, { caught: E }>;
 
 /** Extracts the OK case from a result */
-export type CaseOk<T> = T extends Result<infer U, infer E> ? U extends Err<E> ? never : U : never;
+export type CaseOk<T> = T extends Result<infer U> ? Ok<U> : never;
 
 /** Extracts the error case from a result */
-export type CaseErr<T> = T extends Result<infer U, infer E> ? E extends Ok<U> ? never : E : never;
+export type CaseErr<T> = T extends Result<unknown, infer E> ? Err<E> : never;
 
 /** Creates an OK result */
 export function ok(): Ok;

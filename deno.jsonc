@@ -63,5 +63,5 @@
         "exclude": [".gitignore", ".editorconfig", ".prettierrc", "deno.lock"]
     },
 
-    "version": "1.2.0"
+    "version": "1.2.1"
 }

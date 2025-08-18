@@ -45,16 +45,31 @@ export function when(isOk: boolean, value?: object): Result {
     return isOk ? ok(value) : err(value);
 }
 
-/** Returns the result if it is OK, otherwise throws the value passed to `elseThrow` */
-export function unwrap<T>(result: Result<T>, elseThrow?: unknown): Ok<T> {
+/** Returns the result if it is OK, otherwise throws the value returned from `elseThrow` */
+export function unwrapSync<T, E>(
+    result: Result<T, E>,
+    elseThrow?: (result: Err<E>) => unknown,
+): Ok<T> {
     if (result.ok) return result;
-    else throw elseThrow ?? new Error("Error was unwrapped");
+    else throw elseThrow?.(result) ?? new Error("Error was unwrapped");
 }
 
-/** Asserts that the result is OK, otherwise throws the value passed to `elseThrow` */
-export function assert<T>(result: Result<T>, elseThrow?: unknown): asserts result is Ok<T> {
+/** Returns the result if it is OK, otherwise throws the value returned from `elseThrow` */
+export async function unwrap<T, E>(
+    result: Result<T, E>,
+    elseThrow?: (result: Err<E>) => unknown,
+): Promise<Ok<T>> {
+    if (result.ok) return result;
+    else throw await elseThrow?.(result) ?? new Error("Error was unwrapped");
+}
+
+/** Asserts that the result is OK, otherwise throws the value returned from `elseThrow` */
+export function assert<T, E>(
+    result: Result<T, E>,
+    elseThrow?: (result: Err<E>) => unknown,
+): asserts result is Ok<T> {
     if (result.ok) return;
-    else throw elseThrow ?? new Error("Error was asserted");
+    else throw elseThrow?.(result) ?? new Error("Error was asserted");
 }
 
 /** Returns an OK result if no error was caught, otherwise an error result */

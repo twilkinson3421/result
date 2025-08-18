@@ -89,3 +89,14 @@ export function catchErrSync(cb: () => unknown, test?: (caught: unknown) => bool
         throw caught;
     }
 }
+
+/**
+ * An enum to be used by taken by consumer functions, to allow callers to
+ * handle the result themselves, or allow the function to handle error cases.
+ */
+export const enum Strategy {
+    /** Receive the result and handle it */
+    Return = "Return",
+    /** Handle any errors and return the OK result */
+    Handle = "Handle",
+}
